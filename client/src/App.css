@@ -1,0 +1,172 @@
+.navbar{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items:center;
+}
+
+*{
+  padding: 5px
+}
+
+.mainpageinput{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100vw;
+  height: 20vh;
+  background: grey;
+  flex-wrap: wrap;
+  
+}
+
+.hotelregister{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+}
+
+.mainpageinput {
+  position: relative; 
+}
+
+.city-suggestions {
+  position: absolute;
+  top: 100%; 
+  left: 0;
+  border: 1px solid #ccc;
+  max-height: 150px;
+  overflow-y: auto;
+  background: white;
+  z-index: 1000;
+  width: 100%; 
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.suggestion-item {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.suggestion-item:hover {
+  background: #f0f0f0;
+}
+
+.hotelcard {
+  display: flex;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 10px 0;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.hotelcard-img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+}
+
+.hotelcard-info {
+  padding: 10px;
+  flex-grow: 1;
+}
+
+.hotelcard-info h2 {
+  margin: 0 0 10px 0;
+  font-size: 1.5em;
+}
+
+.hotelcard-info p {
+  margin: 0 0 10px 0;
+  color: #555;
+}
+
+.hotelcard-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.hotelcard-details span {
+  background: #f0f0f0;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.hotelcard-button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.hotelcard-button:hover {
+  background-color: #0056b3;
+}
+
+.modal-wrapper{
+   position: fixed;
+    top: 0;
+    bottom:0;
+    left:0;
+    right:0;
+    background-color: rgba(189,189,189,0.9);
+}
+
+.modal-container{
+  position: fixed;
+  top: 50%;
+  left:50%;
+  transform: translate(-50%, -50%);
+  max-width: 50rem;
+  background-color: white ;
+  padding:10px;
+  margin: 10px
+
+}
+
+.main-page-container {
+  display: flex;
+}
+
+.filter-sidebar {
+ display:flex;
+ position: absolute;
+ z-index: 99;
+ 
+}
+
+.main-page-input {
+  width: 80%;
+  padding: 20px;
+}
+
+.filter-section {
+  margin-bottom: 20px;
+}
+
+.filter-section h4 {
+  margin-bottom: 10px;
+}
+
+.filter-section input[type="range"] {
+  width: 100%;
+}
+
+
+.chatbox{
+  position: fixed;
+  z-index: 99;
+  right: 0;
+  height: 100vh;
+  width: 30vw;
+  background-color: grey;
+}
