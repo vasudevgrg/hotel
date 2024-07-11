@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import Chat from './Chat';
 import Cookies from 'js-cookie';
+import { showPopup } from '../action';
 
 const HotelCard = ({ data, startDate, endDate, large, small }) => {
   const [smallRoomPrice, setSmallRoomPrice] = useState(0);
@@ -59,7 +60,7 @@ console.log(res);
         "Content-Type": "application/json"
       },
       credentials: 'include'
-    }).then(e => e.json()).then(e => console.log(e));
+    }).then(e => e.json()).then(e =>{ console.log(e); dispatch(showPopup({visible:true, message: e.message}))});
   };
 
   return (
@@ -75,8 +76,8 @@ console.log(res);
             <span>Price of Large Room: ${largeRoomPrice} per night</span>
           </div>
           <button onClick={handleHotelBook} className='hotelcard-button'>Book Now</button>
-          <button className='hotelcard-button' onClick={() => setShowChat(e => !e)}>Chat with Hotel</button>
-          {showChat && userId && <Chat user_id={userId} receiver_id={data.id} />}
+          <button className='hotelcard-button' onClick={() => setShowChat(e=>!e)}>Chat with Hotel</button>
+          {showChat &&  <Chat user_id={userId} receiver_id={data.id} />}
         </div>
       </div>
     </>

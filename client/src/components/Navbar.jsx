@@ -1,11 +1,23 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
+
 
 const Navbar = () => {
+    const [showName, setShowName]= useState(false);
+    const user= useSelector(e=>e.manageCurrUser);
+  const navigate= useNavigate();
+    useEffect(()=>{
+       if(Object.keys(user).length!==0){
+        setShowName(true);
+       }
+    })
   return (
     <>
-    <div className='navbar'>
+    <nav className='navbar'>
         <h1>
-            Demo
+            OYO demo
         </h1>
         <hr/>
         <div>
@@ -23,9 +35,14 @@ const Navbar = () => {
             <p>Call us to book now..!!</p>
         </div>
         <div>
-            Login/SignUp
+            {
+                showName && <p>Welcome to {user.name}</p>
+            }
+            {
+                !showName && <button onClick={()=>navigate("/login")}>Login/Signup</button>
+            }
         </div>
-    </div>
+    </nav>
     </>
   )
 }

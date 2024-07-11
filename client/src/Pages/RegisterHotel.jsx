@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { showPopup } from '../action';
 
 const RegisterHotel = () => {
     const [name, setName] = useState("");
@@ -19,8 +21,9 @@ const RegisterHotel = () => {
     const API_KEY = '416562346876343';
 
     const navigate = useNavigate();
-
+    const dispatch= useDispatch();
     const handleRegister = async () => {
+        handleshowLoading();
         try {
             const r1 = await fetch("http://localhost:5002/hotel/signedurl", {
                 credentials: 'include'
@@ -65,7 +68,7 @@ const RegisterHotel = () => {
                     setSuccessMessage("");
                 }, 5000);
             }
-
+            handleHideLoading();
             setFile(null);
             setRoom_no(0);
             setPrice(0);
@@ -78,6 +81,14 @@ const RegisterHotel = () => {
         } catch (err) {
             console.log(err);
         }
+    }
+
+    const handleshowLoading=()=>{
+        dispatch(showPopup({message:"Regristring Hotel...", visible:true}));
+    }
+
+    const handleHideLoading=()=>{
+        dispatch(showPopup({message:"Regristring Hotel...", visible:false}))
     }
 
     const handleAddRoom = () => {
@@ -100,7 +111,7 @@ const RegisterHotel = () => {
             <div className='hotelregister'>
                 <label>
                     Name of Hotel:
-                    <input onChange={e => setName(e.target.value)} />
+                    <input value={name} onChange={e => setName(e.target.value)} />
                 </label>
                 <label>
                     Hotel Photo:
@@ -108,18 +119,19 @@ const RegisterHotel = () => {
                 </label>
                 <label>
                     Location of Hotel:
-                    <input onChange={e => setLocation(e.target.value)} />
+                    <input value={location} onChange={e => setLocation(e.target.value)} />
                 </label>
                 <label>
                     Details of Number of Rooms:
                     <div>
                         <label>
                             Room Number:
-                            <input onChange={e => setRoom_no(e.target.value)} />
+                            <input value={room_no} onChange={e => setRoom_no(e.target.value)} />
                         </label>
                         <label>
                             Size:
                             <select onChange={e => setSize(e.target.value)}>
+                                <option>Choose Size</option>
                                 <option value='large'>Large</option>
                                 <option value='small'>Small</option>
                             </select>
@@ -128,9 +140,9 @@ const RegisterHotel = () => {
                     </div>
                     <hr />
                     Price of Small Room:
-                    <input onChange={e => setSmallRoomPrice(e.target.value)} />
+                    <input value={smallRoomPrice} onChange={e => setSmallRoomPrice(e.target.value)} />
                     Price of Large Room:
-                    <input onChange={e => setLargeRoomPrice(e.target.value)} />
+                    <input value={largeRoomPrice} onChange={e => setLargeRoomPrice(e.target.value)} />
                 </label>
 
                 <label>
@@ -143,9 +155,10 @@ const RegisterHotel = () => {
             </div>
             <div>
 
-                <button>Register Another Hotel</button>
-                <button > Go to admin Page</button>
+                <button onClick={()=>navigate("/registerhotel")}>Register Another Hotel</button>
+                <button onClick={navigate("/hoteladmin")}> Go to admin Page</button>
             </div>
+            
         </>
     )
 }

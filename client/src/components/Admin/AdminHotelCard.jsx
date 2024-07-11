@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import BookNowModal from './BookNowModal';
+import { useNavigate } from 'react-router-dom';
 
 
 const AdminHotelCard = ({data}) => {
   
 const [showBookNow, setShowBookNow]= useState(false);
-   
+   const navigate= useNavigate();
   return (
    <>
    <div style={{border:"2px solid black", padding:"10px", margin:"10px"}}>
@@ -16,7 +17,7 @@ const [showBookNow, setShowBookNow]= useState(false);
             <th>Room No</th>
             <th>Size</th>
             <th>Vacancy</th>
-            <th>Book this room</th>
+          
         </tr>
         {
             data.Rooms.map(e=>(
@@ -26,11 +27,12 @@ const [showBookNow, setShowBookNow]= useState(false);
                     </td>
                     <td>{e.size}</td>
                     <td>{e.vacancy && "T"}</td>
-                    <td><button onClick={()=>setShowBookNow(true)}>Book Now</button></td>
+                    
                 </tr>
             ))
         }
     </table>
+    <button onClick={()=>navigate(`/hoteladmin/${data.id}`)}>Go to Hotel Main Page</button>
    </div>
    {
     showBookNow && <BookNowModal setShowBookNow={setShowBookNow}/>

@@ -1,7 +1,7 @@
 const initialState= "";
 
 export const manageHotelId=(state= initialState, action)=>{
-    if(action=="hotelId"){
+    if(action.type=="hotelId"){
         return action.payload;
     }else{
         return state;

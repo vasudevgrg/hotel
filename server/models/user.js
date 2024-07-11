@@ -42,7 +42,7 @@ module.exports = (sequelize, DataTypes) => {
       username: {
         type: DataTypes.STRING,
         allowNull: false,
-        // unique: true,
+        unique: true,
         validate: {
           isEmail: true,
           notEmpty: true,
@@ -61,11 +61,7 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           isIn: [["hotel owner", "traveller"]],
         },
-      },
-      uniqueNum: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
+      }
     },
     {
       sequelize,

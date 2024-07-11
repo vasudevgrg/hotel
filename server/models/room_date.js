@@ -22,7 +22,14 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Room_Date',
-    tableName:'Room_Date'
+    tableName:'Room_Date',
+    validate: {
+      startDateBeforeEndDate(){
+        if(new Date(this.startDate)>=new Date(this.endDate)){
+          throw new Error("End Date must be greater than start date")
+        }
+      }
+    }
   });
   return Room_Date;
 };

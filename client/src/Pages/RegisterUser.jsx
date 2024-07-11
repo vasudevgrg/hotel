@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { showPopup } from '../action';
 
 const RegisterUser = () => {
     const [name, setName] = useState("");
@@ -7,9 +9,10 @@ const RegisterUser = () => {
     const [password, setPassword] = useState("");
     const [role, setRole] = useState("");
     const [errors, setErrors] = useState({});
-    const [showMessage, setShowMessage]= useState(false);
-    const [message, setMessage]= useState("");
+    
     const navigate = useNavigate();
+
+    const dispatch= useDispatch();
 
     const handleRegister = () => {
         fetch("http://localhost:5002/user/register", {
@@ -26,6 +29,8 @@ const RegisterUser = () => {
             credentials: 'include'
         }).then(response => response.json())
           .then(data => {
+            console.log(data);
+            dispatch(showPopup({ visible: true, message:"this is email sent notification" }));
               if (data.error) {
                   const errorObject = data.error.reduce((acc, err) => {
                       const key = Object.keys(err)[0];
@@ -33,10 +38,6 @@ const RegisterUser = () => {
                       return acc;
                   }, {});
                   setErrors(errorObject);
-              } else {
-                  console.log(data);
-                setMessage(data.message);
-                setShowMessage(true);
               }
           })
           .catch(err => console.log(err));
@@ -70,9 +71,7 @@ const RegisterUser = () => {
                 {errors.role && <span style={{color: 'red'}}>{errors.role}</span>}
             </label>
             <button onClick={handleRegister}>Register</button>
-            {
-                showMessage && message
-            }
+            
         </>
     )
 }

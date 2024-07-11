@@ -33,4 +33,23 @@ export const currUser=(payload)=>{
         type:"currUser",
         payload:payload
     }
+};
+
+export const showPopup=(payload)=>{
+    return{
+        type:'showPopup',
+        payload:payload
+    }
+};
+
+export const hidePopup=()=>{
+    return{
+        type:'hidePopup'
+    }
+}
+
+export const price=()=>{
+    return{
+        type:'price'
+    }
 }

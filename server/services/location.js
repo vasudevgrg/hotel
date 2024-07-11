@@ -14,6 +14,16 @@ class LocationServices {
     });
     return loc;
   };
+
+  findLocation= async (location, transaction)=>{
+    const loc= await db.Location.findOne({
+      where:{
+        name:location
+      },
+      transaction
+    });
+    return loc;
+  }
 }
 
 module.exports = new LocationServices();

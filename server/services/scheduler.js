@@ -44,7 +44,7 @@ const updateVacancyStatus = async () => {
 };
 
 
-schedule.scheduleJob('0 * * * *', async () => {
+schedule.scheduleJob('0 0 * * *', async () => {
     console.log('Running updateOccupancyStatus job');
     await updateOccupancyStatus();
 

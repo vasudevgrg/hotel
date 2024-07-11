@@ -1,7 +1,7 @@
-const initialState= null;
+const initialState= {};
 
 export const manageCurrUser=(state= initialState, action)=>{
-    if(action=="hotelId"){
+    if(action.type==="currUser"){
         return action.payload;
     }else{
         return state;

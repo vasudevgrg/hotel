@@ -39,10 +39,6 @@ module.exports = {
           isIn: [['hotel owner', 'traveller']]
         }
       },
-      uniqueNum:{
-        type:Sequelize.INTEGER,
-        allowNull:false
-      },
 
       createdAt: {
         allowNull: false,

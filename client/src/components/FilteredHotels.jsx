@@ -9,8 +9,7 @@ const FilteredHotels = ({ startDate, endDate, large, small, setShowFilter }) => 
 
     const handlePageClick = (page) => {
         setCurrentPage(page);
-        // Here you can also fetch the data for the selected page
-        // if it's not already available in the state
+       
     };
 
     return (

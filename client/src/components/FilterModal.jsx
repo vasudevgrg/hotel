@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import "../App.css";
+import { useDispatch, useSelector } from 'react-redux';
 
-const FilterModal = ({setShowFilter, price, setPrice}) => {
+const FilterModal = ({setShowFilter}) => {
+  const price= useSelector(e=>e.managePrice);
+  const dispatch= useDispatch();
 
     return (
     <>
@@ -12,7 +15,7 @@ const FilterModal = ({setShowFilter, price, setPrice}) => {
       <div className="filter-section">
         <h4>Price</h4>
         {price}
-        <input type="range" min="0" max="1000" step="50" value={price} onChange={e=>setPrice(e.target.value)}/>
+        <input defaultValue="500" type="range" min="0" max="10000" step="50" value={price} onChange={e=>dispatch(price(e.target.value))}/>
       </div>
       <div className="filter-section">
         <h4>Rating</h4>

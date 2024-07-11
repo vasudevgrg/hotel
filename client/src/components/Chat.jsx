@@ -5,7 +5,7 @@ const Chat = ({ user_id, receiver_id }) => {
     const [prevMessages, setPrevMessages] = useState([]);
     const [message, setMessage] = useState("");
     const socket = io("http://localhost:5002");
-
+console.log("inside chat");
     useEffect(() => {
         socket.on("connect", () => {
             console.log(`Connected: ${socket.id}`);
