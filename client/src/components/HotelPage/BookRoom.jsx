@@ -1,18 +1,19 @@
 import React,{useState} from 'react'
 import DatePicker from "react-datepicker";
 
-const BookRoom = () => {
+const BookRoom = ({data, hotelId}) => {
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
     const [availableRooms, setAvailableRooms] = useState([]);
 
-    const handleAvailableRooms = ({data}) => {
+    const handleAvailableRooms = () => {
+        console.log(hotelId);
         fetch("http://localhost:5002/hotel/availablerooms", {
           method: "POST",
           body: JSON.stringify({
             startDate: startDate,
             endDate: endDate,
-            hotel_id: data.id,
+            hotel_id: hotelId,
           }),
           headers: {
             "Content-Type": "application/json",
@@ -27,7 +28,7 @@ const BookRoom = () => {
       };
 
       const handleBook=()=>{
-        
+
       }
   return (
     <>

@@ -48,8 +48,16 @@ export const hidePopup=()=>{
     }
 }
 
-export const price=()=>{
+export const price=(payload)=>{
     return{
-        type:'price'
+        type:'price',
+        payload:payload
+    }
+}
+
+export const pageno= (payload)=>{
+    return{
+        type:'pageno',
+        payload:payload
     }
 }

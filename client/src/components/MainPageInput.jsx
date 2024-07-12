@@ -14,10 +14,10 @@ const MainPageInput = () => {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [showFilter, setShowFilter] = useState(false);
-
-  const [ratings, setRatings] = useState(0);
   const [citySuggestions, setCitySuggestions] = useState([]);
+
   const price = useSelector((e) => e.managePrice);
+  const pageno = useSelector((e) => e.managePageno);
   const dispatch = useDispatch();
 
   const fetchCitySuggestions = async (query) => {
@@ -39,7 +39,7 @@ const MainPageInput = () => {
 
   const handleSearchHotels = () => {
     fetch(
-      `http://localhost:5002/hotel/gethotels?pageSize=2&pageNumber=0&price=${price}`,
+      `http://localhost:5002/hotel/gethotels?pageSize=2&pageNumber=${pageno}&price=${price}`,
       {
         method: "POST",
         body: JSON.stringify({
@@ -60,6 +60,11 @@ const MainPageInput = () => {
         dispatch(hotels(e.hotels));
       });
   };
+
+  useEffect(() => {
+    handleSearchHotels();
+  }, [pageno]);
+
   return (
     <>
       <h1>Over 174,000+ hotels and homes across 35+ countries</h1>
@@ -71,10 +76,12 @@ const MainPageInput = () => {
         />
         <input
           placeholder="Number of Large Rooms"
+          value={large}
           onChange={(e) => setLarge(e.target.value)}
         />
         <input
-          placeholder="Number of Small ROoms"
+          placeholder="Number of Small Rooms"
+          value={small}
           onChange={(e) => setSmall(e.target.value)}
         />
         <DatePicker
@@ -95,11 +102,11 @@ const MainPageInput = () => {
                 key={index}
                 className="suggestion-item"
                 onClick={() => {
-                  setLocation(city.location);
+                  setLocation(city.name);
                   setCitySuggestions([]);
                 }}
               >
-                {city.location}
+                {city.name}
               </div>
             ))}
           </div>

@@ -8,7 +8,7 @@ const ProtectedRoute = ({children}) => {
     if(!user){
         return <Navigate to="/login" state={{ from: location}} replace />
     }
-    if(user.role=="traveller"){
+    if(user.role==="traveller"){
         return <Navigate to="/accessdenied" state={{from: location}} replace/>
     }
  return children

@@ -23,6 +23,7 @@ const LoginPage = () => {
     })
       .then((e) => e.json())
       .then((e) => {
+        console.log(e);
         setUsername("");
         setPassword("");
         dispatch(showPopup({ visible: true, message: e.message }));

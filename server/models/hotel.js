@@ -43,7 +43,10 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Hotel',
-    tableName:'Hotel'
+    tableName:'Hotel',
+    indexes:[
+      {fields:['user_id']}
+    ]
   });
   return Hotel;
 };

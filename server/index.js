@@ -6,6 +6,7 @@ const app= express();
 const hotelRoutes= require("./routes/hotel");
 const userRoutes= require("./routes/user");
 const travellerRoutes= require("./routes/traveller")
+const roomRoutes= require("./routes/room");
 const scheduler= require("./services/scheduler");
 const {Server}= require("socket.io");
 const db= require("./models/index");
@@ -20,6 +21,7 @@ app.use(cors({
 app.use("/hotel", hotelRoutes);
 app.use("/traveller", travellerRoutes);
 app.use("/user", userRoutes);
+app.use("/room", roomRoutes);
 
 const httpServer= createServer(app);
 const io= new Server(httpServer,{

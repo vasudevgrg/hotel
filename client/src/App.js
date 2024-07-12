@@ -13,6 +13,7 @@ import ChangePassword from "./Pages/ChangePassword";
 import ProtectedRoute from "./utils/AdminProtectedRoutes/ProtectedRoute";
 import Navbar from "./components/Navbar";
 import AccessDenied from "./Pages/Error/AccessDenied";
+import RoomPage from "./Pages/RoomPage";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path="/chat" element={<Chat/>} />
           <Route path="/login" element={<LoginPage/>}/>
           <Route path="/hoteladmin/:hotelId" element={<HotelPage/>}  />
+          <Route path="/hoteladmin/room/:room_id" element={<RoomPage/>}/>
           <Route path="/travellerprofile" element={<TravellerProfile/>}/>
           <Route path="/changepassword" element={<ChangePassword/>}/>
           <Route path="/accessdenied" element={<AccessDenied/>}/>

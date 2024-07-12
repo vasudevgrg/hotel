@@ -13,11 +13,16 @@ module.exports = (sequelize, DataTypes) => {
       Room_Date.belongsTo(models.Room, {
         foreignKey:'room_id'
       });
+
+      Room_Date.belongsTo(models.User,{
+        foreignKey:'user_id'
+      })
     }
   }
   Room_Date.init({
     startDate: DataTypes.DATE,
     endDate: DataTypes.DATE,
+    user_id:DataTypes.INTEGER,
     room_id: DataTypes.INTEGER
   }, {
     sequelize,
@@ -29,7 +34,10 @@ module.exports = (sequelize, DataTypes) => {
           throw new Error("End Date must be greater than start date")
         }
       }
-    }
+    },
+    indexes:[
+     { fields:['user_id']}
+    ]
   });
   return Room_Date;
 };

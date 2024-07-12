@@ -11,11 +11,12 @@ class roomDateServices{
         return allDates
     }
 
-    createDate= async ({startDate, endDate, room_id}, transaction)=>{
+    createDate= async ({startDate, endDate, room_id, user_id}, transaction)=>{
        const date= await db.Room_Date.create({
             startDate,
             endDate,
-            room_id
+            room_id,
+            user_id
         },transaction);
 
         return date;

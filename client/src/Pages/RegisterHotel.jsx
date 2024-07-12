@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { showPopup } from '../action';
+import { currUser, showPopup } from '../action';
+import Cookies from 'js-cookie';
 
 const RegisterHotel = () => {
     const [name, setName] = useState("");
@@ -22,6 +23,16 @@ const RegisterHotel = () => {
 
     const navigate = useNavigate();
     const dispatch= useDispatch();
+
+useEffect(()=>{
+    const user_id= Cookies.get('user_id');
+    if(user_id){
+        fetch(`http://localhost:5002/user/getuserinfo/${user_id}`).then(e=>e.json()).then(e=>{
+            dispatch(currUser(e.user))
+        })
+    }
+})
+
     const handleRegister = async () => {
         handleshowLoading();
         try {
@@ -156,7 +167,7 @@ const RegisterHotel = () => {
             <div>
 
                 <button onClick={()=>navigate("/registerhotel")}>Register Another Hotel</button>
-                <button onClick={navigate("/hoteladmin")}> Go to admin Page</button>
+                <button onClick={()=>navigate("/hoteladmin")}> Go to admin Page</button>
             </div>
             
         </>

@@ -26,14 +26,6 @@ module.exports = {
         allowNull: false,
         defaultValue: true
       },
-      occupancyDate: {
-        type: Sequelize.DATE,
-        allowNull: true
-      },
-      vacancyDate: {
-        type: Sequelize.DATE,
-        allowNull: true
-      },
       hotel_id: {
         type: Sequelize.INTEGER,
         allowNull: false,

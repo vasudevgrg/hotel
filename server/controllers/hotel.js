@@ -6,6 +6,7 @@ const locationServices = require("../services/location");
 const roomServices = require("../services/room");
 const amenityServices = require("../services/amenity");
 const roomDateServices = require("../services/room_date");
+const { Op } = require('sequelize'); 
 require("dotenv").config();
 
 const createhotel = async (req, res) => {
@@ -131,14 +132,22 @@ const handleCitySuggestion = async (req, res) => {
   const cityname = req.query.cityName;
 
   try {
-    const cities = await db.Hotel.findAll({
-      where: {
-        location: {
-          [Op.like]: `%${cityname}%`,
-        },
-      },
-      limit: 5,
-    });
+    // const cities = await db.Hotel.findAll({
+    //   where: {
+    //     location: {
+    //       [Op.like]: `%${cityname}%`,
+    //     },
+    //   },
+    //   limit: 5,
+    // });
+
+    const cities= await db.Location.findAll({
+        where:{
+            name:{
+                [Op.like]: `%${cityname}%`,
+            }
+        }
+    })
 
     res.send({ cities: cities });
   } catch (error) {
@@ -182,7 +191,7 @@ const bookHotel = async (req, res) => {
 
       if (hotelServices.RoomFilter(allDates, { startDate, endDate })) {
         await roomDateServices.createDate(
-          { startDate, endDate, room_id: e.id },
+          { startDate, endDate, room_id: e.id, user_id: req.cookies.user_id },
           t
         );
         large--;
@@ -196,7 +205,7 @@ const bookHotel = async (req, res) => {
 
       if (hotelServices.RoomFilter(allDates, { startDate, endDate })) {
         await roomDateServices.createDate(
-          { startDate, endDate, room_id: e.id },
+          { startDate, endDate, room_id: e.id , user_id: req.cookies.user_id},
           t
         );
 
@@ -283,6 +292,8 @@ const addRating = async (req, res) => {
   });
   res.send({ message: "Review Added" });
 };
+
+
 
 module.exports = {
   createhotel,

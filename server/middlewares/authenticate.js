@@ -20,8 +20,8 @@ const authenticateChangePassword=async (req, res, next)=>{
     }
 };
 
-const authenticateUsername= async (req, res, next)=>{
-    const {username}= req.body;
+const   authenticateUsername= async (req, res, next)=>{
+    const {username, password}= req.body;
     const user=await db.User.findOne({
         where:{
             username
@@ -36,9 +36,24 @@ const authenticateUsername= async (req, res, next)=>{
       }
   
       if(user.password!== password){
-       return res.status(404).send({message:ERROR_MESSAGES.password});
+       return res.status(404).send({message:ERROR_MESSAGES.PASSWORD});
       }
       next();
 }
 
-module.exports= {authenticateChangePassword, authenticateUsername};
+const authenticateHotelAdmin= async (req, res, next)=>{
+    console.log(req.cookies);
+    const user_id= req.cookies.user_id;
+    const user= await db.User.findOne({
+        where:{
+            id:user_id
+        }
+    });
+
+    if(user.role!=="hotel owner"){
+        throw new Error({mesage:"Permission denied"});
+    }
+    next();
+}
+
+module.exports= {authenticateChangePassword, authenticateUsername, authenticateHotelAdmin};

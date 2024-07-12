@@ -30,14 +30,17 @@ const RegisterUser = () => {
         }).then(response => response.json())
           .then(data => {
             console.log(data);
-            dispatch(showPopup({ visible: true, message:"this is email sent notification" }));
+            
               if (data.error) {
+                
                   const errorObject = data.error.reduce((acc, err) => {
                       const key = Object.keys(err)[0];
                       acc[key] = err[key];
                       return acc;
                   }, {});
                   setErrors(errorObject);
+              }else{
+                dispatch(showPopup({ visible: true, message:data.message}));
               }
           })
           .catch(err => console.log(err));

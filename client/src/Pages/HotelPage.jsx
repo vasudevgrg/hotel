@@ -38,7 +38,7 @@ const HotelPage = () => {
       </div>
       <div>
         <h2>Book Rooms</h2>
-      <BookRoom data={data}/>
+      <BookRoom data={data} hotelId={hotelId}/>
       </div>
       <div>
         <h1>All ratings</h1>

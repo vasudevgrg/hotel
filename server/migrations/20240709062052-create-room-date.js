@@ -15,6 +15,13 @@ module.exports = {
       endDate: {
         type: Sequelize.DATE
       },
+      user_id:{
+        type: Sequelize.INTEGER,
+        references:{
+          model:'User',
+          key:'id'
+        }
+      },
       room_id: {
         type: Sequelize.INTEGER,
         references:{

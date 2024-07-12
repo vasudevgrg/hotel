@@ -8,15 +8,15 @@ const createUser = async (req, res) => {
   const { name, username, password, role } = req.body;
 
   try {
+    const userInstance = db.User.build({ name, username, password, role });
+    await userInstance.validate();
     const userData = { name, username, password, role };
     await redis.set(username, JSON.stringify(userData));
-
     const token = jwt.sign({ username, role }, process.env.JWT_SECRET, { expiresIn: '1h' });
-
     const verificationLink = `http://localhost:5002/user/verify/${token}`;
-    userServices.sendMail({username, verificationLink,topic:"Verification Mail"});
+    userServices.sendMail({ username, verificationLink, topic: "Verification Mail" });
+
     res.status(201).send({ message: `Verification Mail sent. Waiting for confirmation` });
-   
   } catch (error) {
     console.log("inside createUser error");
     if (error.name === 'SequelizeValidationError' || error.name === 'SequelizeUniqueConstraintError') {
@@ -66,6 +66,11 @@ const verify = async (req, res) => {
 const Login=async (req, res)=>{
     const {username, password}= req.body;
     try{ 
+      const user=await db.User.findOne({
+        where:{
+            username
+        }
+    });
     res.cookie("user_id", user.id, {
         // httpOnly:true,
         secure:false
@@ -119,4 +124,14 @@ const changePassword= async (req, res)=>{
   res.send({message:"Password Updated"});
 };
 
-module.exports={createUser, verify, Login, forgotPassword, changePassword, verifyPassword};
+const getUserInfo= async (req, res)=>{
+  const  user_id= req.params.user_id;
+  const user= await db.User.findOne({
+    where:{
+      id:user_id
+    }
+  });
+  res.send({user:user});
+}
+
+module.exports={createUser, verify, Login, forgotPassword, changePassword, verifyPassword, getUserInfo};
